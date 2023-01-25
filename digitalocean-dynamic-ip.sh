@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Version: 1.0
-# Date: 2018/08/26
+# Version: 1.1
+# Date: 2023/01/23
 # Author: Steve Talley (Dusty Sun) <steve@dustysun.com>
 
+# Requirements: Python and doctl package.
+
+# Ubuntu:
+# snap install doctl
 usage=$(cat <<"EOF"
 Usage:
     ./doctl-updatedns.sh [--help] --record=<record_set_name>
@@ -29,6 +33,7 @@ OPTIONS
     
     --doctlpath=<path_to_doctl>
         Optional: Enter the path where the doctl command is on your system. It defaults to /snap/bin.
+
 EOF
 )
 
@@ -78,8 +83,9 @@ if [ $SHOW_HELP -eq 1 ]; then
     exit 0
 fi
 
-# Start logfile fresh 
-echo `date` > "$LOGFILE"
+# Start logfile or continue 
+echo `================================` >> "$LOGFILE"
+echo `[date]` >> "$LOGFILE"
 
 # get the current ip
 ${DOCTL_PATH}/doctl --access-token ${ACCESSTOKEN} compute domain records list ${DOMAIN} --output json > /tmp/digitalocean.json
@@ -91,9 +97,9 @@ echo "jdata = sys.stdin.read()" >> /tmp/digitalocean.py
 echo "jsonObject = json.loads(jdata)" >> /tmp/digitalocean.py
 echo "for x in jsonObject:" >> /tmp/digitalocean.py
 echo "    if x[\"name\"]=='${HOSTNAME}':" >> /tmp/digitalocean.py
-echo "        print(\"{}|{}\").format(x[\"data\"],x[\"id\"])" >> /tmp/digitalocean.py
+echo "        print(\"{}|{}\".format(x[\"data\"],x[\"id\"]))" >> /tmp/digitalocean.py
 
-DIGITALOCEAN_INFO=`cat /tmp/digitalocean.json | python /tmp/digitalocean.py`
+DIGITALOCEAN_INFO=`cat /tmp/digitalocean.json | python3 /tmp/digitalocean.py`
 
 DIGITALOCEAN_IP=`echo $DIGITALOCEAN_INFO |cut -d '|' -f1`
 DIGITALOCEAN_ID=`echo $DIGITALOCEAN_INFO |cut -d"|" -f2`

@@ -56,3 +56,7 @@ Then add a line like this:
 
 ## How Did This Work For You?
 Do you have any questions on this? Did it work for you? We’d love to hear your feedback! Please leave a comment below or send us an email at [support@dustysun.com](mailto:support@dustysun.com).
+
+# Versions
+
+* v1.1 - 2023-01-23 - Updates for compatibility with python 3.
