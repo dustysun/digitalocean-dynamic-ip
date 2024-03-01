@@ -59,4 +59,5 @@ Do you have any questions on this? Did it work for you? We’d love to hear your
 
 # Versions
 
+* v1.1.1 - 2024-02-29 - Updates for logging the date and run separators.
 * v1.1 - 2023-01-23 - Updates for compatibility with python 3.

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Version: 1.1
-# Date: 2023/01/23
+# Version: 1.1.1
+# Date: 2024/02/29
 # Author: Steve Talley (Dusty Sun) <steve@dustysun.com>
 
 # Requirements: Python and doctl package.
@@ -84,8 +84,8 @@ if [ $SHOW_HELP -eq 1 ]; then
 fi
 
 # Start logfile or continue 
-echo `================================` >> "$LOGFILE"
-echo `[date]` >> "$LOGFILE"
+echo '================================' >> "$LOGFILE"
+echo $(date) >> "$LOGFILE"
 
 # get the current ip
 ${DOCTL_PATH}/doctl --access-token ${ACCESSTOKEN} compute domain records list ${DOMAIN} --output json > /tmp/digitalocean.json
